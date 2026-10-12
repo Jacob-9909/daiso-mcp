@@ -25,11 +25,11 @@
 <!-- WORKERS_INVOCATIONS_CHART:START -->
 <div align="center">
 
-<h3>Cloudflare 요청 수 (2026-09-12 ~ 2026-10-11, 30일)</h3>
+<h3>Cloudflare 요청 수 (2026-09-13 ~ 2026-10-12, 30일)</h3>
 
-<img src="../../assets/analytics/workers-invocations.png?v=2026-10-11T19:34:51.714Z" alt="Cloudflare 요청 수 그래프 (2026-09-12 ~ 2026-10-11)" width="100%">
+<img src="../../assets/analytics/workers-invocations.png?v=2026-10-12T22:30:47.251Z" alt="Cloudflare 요청 수 그래프 (2026-09-13 ~ 2026-10-12)" width="100%">
 
-<sub>기준 워커: <code>daiso-mcp</code> · 마지막 갱신: 2026-10-12 04:34 KST</sub>
+<sub>기준 워커: <code>daiso-mcp</code> · 마지막 갱신: 2026-10-13 07:30 KST</sub>
 <br><sub>집계: Worker 실행 + 루트 GET 리디렉션 요청 · 사용자 수와 다릅니다.</sub>
 
 </div>
