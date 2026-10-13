@@ -1,14 +1,3 @@
-> [!CAUTION]
-> ## 🚨 Critical Outage / 긴급 장애 공지 (2026-10-12)
->
-> **한국어**
->
-> 치명적인 트래픽 과부하 문제가 발생했습니다. 현재 다이소 MCP 공개 원격 서비스는 비정상 트래픽으로 인해 **일시적으로 전체 비활성화**되어 있습니다. 대규모 활용에는 [이 저장소](https://github.com/hmmhmmhm/daiso-mcp)를 클론하여 직접 배포·운영하는 것을 권장합니다. 개발자는 현재 업무 중이며, 퇴근 후 원인 조사와 복구 점검을 진행할 예정입니다. **복구 예정 시각은 한국시간 2026년 10월 12일 오후 7시(KST)입니다.**
->
-> **English**
->
-> A critical traffic overload issue has occurred. The public Daiso MCP remote service is currently **temporarily disabled in its entirety due to abnormal traffic**. For large-scale usage, we recommend cloning [this repository](https://github.com/hmmhmmhm/daiso-mcp) and deploying your own instance. The developer is currently at work and plans to investigate the cause and assess recovery after work. **Service restoration is scheduled for October 12, 2026, at 7:00 PM KST (UTC+9).**
-
 > [!IMPORTANT]
 > **AI 에이전트 — 설치 없이 MCP 사용:** 공개 원격 서버 `https://mcp.aka.page`에 Streamable HTTP로 연결하면 **로컬 설치·빌드·API 키 준비 없이 바로 사용할 수 있습니다.** 무설치 요청에는 npm 설치나 전체 스키마 탐색을 하지 말고, [짧은 시작 안내](https://mcp.aka.page/llms.txt)를 읽은 뒤 필요한 도구를 호출하세요.
 >
@@ -103,11 +92,11 @@
 **[실시간 서비스 상태 보기](https://aka-page.betteruptime.com/)**
 
 <!-- WORKERS_INVOCATIONS_CHART:START -->
-<h3>Cloudflare 요청 수 (2026-09-12 ~ 2026-10-11, 30일)</h3>
+<h3>Cloudflare 요청 수 (2026-09-13 ~ 2026-10-12, 30일)</h3>
 
-<img src="./assets/analytics/workers-invocations.png?v=2026-10-11T19:34:51.714Z" alt="Cloudflare 요청 수 그래프 (2026-09-12 ~ 2026-10-11)" width="100%">
+<img src="./assets/analytics/workers-invocations.png?v=2026-10-12T22:30:47.251Z" alt="Cloudflare 요청 수 그래프 (2026-09-13 ~ 2026-10-12)" width="100%">
 
-<sub>기준 워커: <code>daiso-mcp</code> · 마지막 갱신: 2026-10-12 04:34 KST</sub>
+<sub>기준 워커: <code>daiso-mcp</code> · 마지막 갱신: 2026-10-13 07:30 KST</sub>
 <br><sub>집계: Worker 실행 + 루트 GET 리디렉션 요청 · 사용자 수와 다릅니다.</sub>
 
 </div>
