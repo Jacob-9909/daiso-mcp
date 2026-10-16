@@ -246,6 +246,9 @@ Mac 중계의 일일 예산은 100배, 분당 속도는 10배로 증액했습니
 - [@thecats1105](https://github.com/thecats1105): 다이소 진열 위치 조회
 - [@betterthanhajin](https://github.com/betterthanhajin): CGV 서비스
 - [@LLagoon3](https://github.com/LLagoon3): 다이소 재고 인증
+- [@vkehfdl1](https://github.com/vkehfdl1): 롯데시네마 잔여 좌석 계산 수정
+- [@bgmbgm94](https://github.com/bgmbgm94): 디트릭스 표준 포트 전환
+- [@Jacob-9909](https://github.com/Jacob-9909): 개발자 요청 API의 null 본문 오류 수정
 - [제로초님](https://youtube.com/shorts/ZgIqA1NCEp0?si=UW0pKsSpqmEi7lXG): 프로젝트 홍보
 
 MIT License
