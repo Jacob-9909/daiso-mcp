@@ -122,6 +122,15 @@ describe('durable state edge cases', () => {
     await s.call('/failure', { key: 'cu-stock', at });
     await s.call('/failure', { key: 'cu-stock', at });
   });
+  it('accepts an equal-time probe when no request failure exists', async () => {
+    const s = store();
+    const checkedAt = Date.now();
+    await s.call('/checks', { checks: [{ key: 'cu-stock', direct: false, checkedAt }], relays: [] });
+    await s.call('/checks', { checks: [{ key: 'cu-stock', direct: true, checkedAt }], relays: [] });
+    expect(await (await s.call('/snapshot')).json()).toMatchObject({
+      routes: { 'cu-stock': { direct: true, checkedAt } },
+    });
+  });
   it('allows healthy probe only after the failure cooldown expires', async () => {
     const s = store();
     const at = Date.now() - 300001;

@@ -61,7 +61,7 @@ describe('GET /api/opinet', () => {
       .mockResolvedValueOnce(new Response(JSON.stringify({ RESULT: { OIL: [] } })))
       .mockResolvedValueOnce(
         new Response(
-          JSON.stringify({ documents: [{ place_name: '안산 중앙역', address_name: '서울 강남역', y: 37.4979, x: 127.0276 }] }),
+          JSON.stringify({ documents: [{ place_name: '강남역', address_name: '서울 강남구 역삼동', y: 37.4979, x: 127.0276 }] }),
         ),
       )
       .mockResolvedValueOnce(new Response(JSON.stringify({ RESULT: { OIL: [] } })));

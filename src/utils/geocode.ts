@@ -73,7 +73,14 @@ const normalize = (value: string) =>
     .replace(/제주도/gu, '제주')
     .replace(/[^0-9a-z가-힣]/giu, '')
     .toLowerCase();
-function matches(query: string, value: string): boolean {
+function matches(query: string, value: string, placeName: string): boolean {
+  // 역 이름의 숫자가 주소나 다른 역의 출구 번호와 대신 일치하는 것을 막습니다.
+  const station = query.match(/([0-9a-z가-힣]+역)$/iu)?.[1];
+  if (
+    station &&
+    !new RegExp(`${station}(?:[0-9]+호선|$|[^가-힣])`, 'iu').test(placeName)
+  )
+    return false;
   const tokens =
     query
       .replace(/^대한민국\s*/u, '')
@@ -123,6 +130,7 @@ function kakaoLocation(
         : matches(
             query,
             `${document.place_name} ${document.address_name || ''} ${document.road_address_name || ''}`,
+            document.place_name!,
           ))
     )
       continue;
@@ -228,7 +236,7 @@ export async function geocodeLocation(
           validKoreanCoordinates(item.latitude, item.longitude) &&
           (isAddress
             ? matchesAddress(keyword, item.address) || matchesAddress(keyword, item.roadAddress)
-            : matches(keyword, `${item.name} ${item.address} ${item.roadAddress}`)),
+            : matches(keyword, `${item.name} ${item.address} ${item.roadAddress}`, item.name)),
       );
       if (place)
         return {

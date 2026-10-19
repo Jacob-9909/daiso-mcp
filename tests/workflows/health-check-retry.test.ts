@@ -133,9 +133,9 @@ it.each(['CGV_RELAY_FAILED', 'DTRYX_RELAY_FAILED', 'CONVENIENCE_RELAY_FAILED', '
   const result = await retryMinuteChecks(payload([check('cli.contract', { errorCode })]), { endpoint, secret: 'secret', fetchImpl, sleep: async () => undefined });
   expect(result.payload.status).toBe('ok'); expect(fetchImpl).toHaveBeenCalledTimes(1);
 });
-it('CLI 계약의 외부 비분류 오류는 분당 제한 문구가 있어도 반복하지 않는다', async () => {
+it.each(['UPSTREAM_FAILED', undefined])('CLI 계약의 비분류 오류 %s는 분당 제한 문구가 있어도 반복하지 않는다', async errorCode => {
   const fetchImpl = vi.fn();
-  await retryMinuteChecks(payload([check('cli.contract', { errorCode: 'UPSTREAM_FAILED' })]), { endpoint, secret: 'secret', fetchImpl, sleep: async () => undefined });
+  await retryMinuteChecks(payload([check('cli.contract', { errorCode })]), { endpoint, secret: 'secret', fetchImpl, sleep: async () => undefined });
   expect(fetchImpl).not.toHaveBeenCalled();
 });
 it('여러 ID 또는 캐시 결과는 최초 실패를 대체하지 않는다', async () => {
