@@ -73,7 +73,14 @@ const normalize = (value: string) =>
     .replace(/제주도/gu, '제주')
     .replace(/[^0-9a-z가-힣]/giu, '')
     .toLowerCase();
-function matches(query: string, value: string): boolean {
+function matches(query: string, value: string, placeName: string): boolean {
+  // 역 이름의 숫자가 주소나 다른 역의 출구 번호와 대신 일치하는 것을 막습니다.
+  const station = query.match(/([0-9a-z가-힣]+역)$/iu)?.[1];
+  if (
+    station &&
+    !new RegExp(`${station}(?:[0-9]+호선|$|[^가-힣])`, 'iu').test(placeName)
+  )
+    return false;
   const tokens =
     query
       .replace(/^대한민국\s*/u, '')
@@ -123,6 +130,7 @@ function kakaoLocation(
         : matches(
             query,
             `${document.place_name} ${document.address_name || ''} ${document.road_address_name || ''}`,
+            document.place_name!,
           ))
     )
       continue;
@@ -173,7 +181,8 @@ export async function geocodeLocation(
   // 대체 공급자도 최초 요청의 남은 시간만 사용합니다.
   const deadline = Date.now() + (options.timeout ?? options.timeoutMs ?? 10000);
   const remaining = () => deadline - Date.now();
-  const isAddress = /(?:로|길|동|읍|면|리)\s*\d/u.test(keyword);
+  // '을지로3가역'처럼 숫자가 든 역 이름은 주소가 아니라 장소로 검색합니다.
+  const isAddress = !keyword.endsWith('역') && /(?:로|길|동|읍|면|리)\s*\d/u.test(keyword);
   let documents: KakaoDocument[] = [];
   const kakaoTimeout = remaining();
   if (options.kakaoRestApiKey?.trim() && kakaoTimeout > 0) {
@@ -227,7 +236,7 @@ export async function geocodeLocation(
           validKoreanCoordinates(item.latitude, item.longitude) &&
           (isAddress
             ? matchesAddress(keyword, item.address) || matchesAddress(keyword, item.roadAddress)
-            : matches(keyword, `${item.name} ${item.address} ${item.roadAddress}`)),
+            : matches(keyword, `${item.name} ${item.address} ${item.roadAddress}`, item.name)),
       );
       if (place)
         return {

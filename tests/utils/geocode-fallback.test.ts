@@ -166,6 +166,58 @@ describe('정확한 주소 fallback', () => {
       '/v1/search/local.json',
     ]);
   });
+  it.each(['을지로3가역', '종로3가역'])('숫자가 든 역 이름은 장소로 검색한다: %s', async (query) => {
+    const fetchImpl = responses(
+      json({
+        documents: [
+          {
+            place_name: `${query} 1호선`,
+            address_name: '서울 종로구 예시동 10',
+            road_address_name: '서울 종로구 예시로 지하 129',
+            x: '126.99',
+            y: '37.57',
+          },
+        ],
+      }),
+    );
+    expect(await geocodeLocation(query, { kakaoRestApiKey: 'test-kakao', fetchImpl })).toEqual({
+      latitude: 37.57,
+      longitude: 126.99,
+      formattedAddress: '서울 종로구 예시로 지하 129',
+    });
+    expect(new URL(String(fetchImpl.mock.calls[0][0])).pathname).toBe(
+      '/v2/local/search/keyword.json',
+    );
+  });
+  it.each(['Kakao', 'Naver'])('지역명을 띄어 쓴 역 이름도 같은 장소를 찾는다: %s', async (provider) => {
+    const fetchImpl = responses(json(provider === 'Kakao' ? {
+      documents: [{ place_name: '광주송정역', address_name: '광주 광산구 송정동', x: '126.79', y: '35.13' }],
+    } : {
+      items: [{ title: '광주송정역', address: '광주 광산구 송정동',
+        roadAddress: '광주 광산구 상무대로 201', mapx: '1267900000', mapy: '351300000' }],
+    }));
+    expect(await geocodeLocation('광주 송정역', {
+      ...(provider === 'Kakao' ? { kakaoRestApiKey: 'test-kakao' } : {
+        naverClientId: 'test-id', naverClientSecret: 'test-secret',
+      }), fetchImpl,
+    })).toMatchObject({ latitude: 35.13, longitude: 126.79 });
+  });
+  it.each(['Kakao', 'Naver'])('다른 역의 출구 번호를 역 이름의 숫자로 인정하지 않는다: %s', async (provider) => {
+    const fetchImpl = responses(json(provider === 'Kakao' ? {
+      documents: [{
+        place_name: '종로5가역 3번출구', address_name: '서울 종로구 종로5가',
+        road_address_name: '서울 종로구 종로 지하 216', x: '127.001', y: '37.57',
+      }],
+    } : {
+      items: [{ title: '종로5가역 3번출구', address: '서울 종로구 종로5가',
+        roadAddress: '서울 종로구 종로 지하 216', mapx: '1270010000', mapy: '375700000' }],
+    }));
+    expect(await geocodeLocation('종로3가역', {
+      ...(provider === 'Kakao' ? { kakaoRestApiKey: 'test-kakao' } : {
+        naverClientId: 'test-id', naverClientSecret: 'test-secret',
+      }), fetchImpl,
+    })).toBeNull();
+  });
   it('빈 입력과 환경키 없는 입력은 요청하지 않는다', async () => {
     expect(await geocodeLocation(' ')).toBeNull();
     expect(await geocodeLocation('예시역')).toBeNull();
