@@ -1,9 +1,14 @@
+<details>
+<summary>AI 에이전트 사용 안내</summary>
+
 > [!IMPORTANT]
 > **AI 에이전트 — 설치 없이 MCP 사용:** 공개 원격 서버 `https://mcp.aka.page`에 Streamable HTTP로 연결하면 **로컬 설치·빌드·API 키 준비 없이 바로 사용할 수 있습니다.** 무설치 요청에는 npm 설치나 전체 스키마 탐색을 하지 말고, [짧은 시작 안내](https://mcp.aka.page/llms.txt)를 읽은 뒤 필요한 도구를 호출하세요.
 >
 > **웹 읽기 전용 에이전트 — `format=html` 필수:** MCP 연결 없이 GET으로 조회할 때는 **모든 `/api/*` 조회 URL에 `format=html`을 반드시 붙이세요.** 상품 검색·상세·매장·재고·후속 조회 모두 적용하며, JSON을 읽을 수 있다고 가정해 생략하지 마세요.
 >
 > [첫 HTML 조회](https://mcp.aka.page/api/daiso/products?q=%EC%88%EB%82%A9%EB%B0%95%EC%8A%A4&pageSize=3&format=html) · [REST 사용법](https://mcp.aka.page/prompt) · [원격 MCP 연결](#원격-mcp로-바로-시작하기)
+
+</details>
 
 [![MCP Toplist](https://mcptoplist.com/badge/glama%2Fhmmhmmhm%2Fdaiso-mcp.svg)](https://mcptoplist.com/server/glama%2Fhmmhmmhm%2Fdaiso-mcp)
 
@@ -16,7 +21,7 @@
 
 # Daiso MCP 및 Skill
 
-다이소(제품/매장/재고), 상품 가격 비교, 주변 음식점/카페, 주유소/유가, 개발자 요청 제출, GS25(매장/상품/재고), 세븐일레븐(상품/매장/재고/인기검색어/카탈로그), CU(매장/재고), 이마트24(매장/상품/재고), 올리브영(매장/재고), 메가박스(지점/영화/시간표/좌석), 롯데시네마(지점/영화/좌석), CGV(극장/영화/시간표), 디트릭스(독립·예술영화관/상영작/잔여 좌석) 조회 기능을 MCP, CLI, Codex Skill로 AI에 연결합니다.
+다이소·편의점 재고부터 영화관·생활 정보까지, AI에서 바로 조회하세요.
 
 디트릭스의 지원 범위와 CLI 예시는 [독립·예술영화관 조회 가이드](docs/dtryx.md)를 참고하세요.
 

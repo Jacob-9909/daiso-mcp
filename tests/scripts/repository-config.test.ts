@@ -301,11 +301,10 @@ describe('repository maintenance configuration', () => {
     expect(readme).toContain('Daiso MCP 및 Skill');
     expect(readme).toContain('skills/daiso-cli/SKILL.md');
     expect(readme).toContain('npx daiso');
-    const fastStart = readme
-      .slice(readme.indexOf('다이소·편의점 재고'))
-      .split('\n')
-      .slice(0, 100)
-      .join('\n');
+    const fastStartHeading = '## 원격 MCP로 바로 시작하기\n';
+    const fastStartIndex = readme.indexOf(fastStartHeading);
+    expect(fastStartIndex).toBeGreaterThanOrEqual(0);
+    const fastStart = readme.slice(fastStartIndex + fastStartHeading.length).split('\n## ')[0];
     expect(fastStart).toContain('https://mcp.aka.page');
     expect(fastStart).toContain('Streamable HTTP');
     expect(fastStart).toContain('API 키·토큰·OAuth 설정 불필요');
