@@ -166,6 +166,29 @@ describe('정확한 주소 fallback', () => {
       '/v1/search/local.json',
     ]);
   });
+  it.each(['을지로3가역', '종로3가역'])('숫자가 든 역 이름은 장소로 검색한다: %s', async (query) => {
+    const fetchImpl = responses(
+      json({
+        documents: [
+          {
+            place_name: `${query} 1호선`,
+            address_name: '서울 종로구 예시동 10',
+            road_address_name: '서울 종로구 예시로 지하 129',
+            x: '126.99',
+            y: '37.57',
+          },
+        ],
+      }),
+    );
+    expect(await geocodeLocation(query, { kakaoRestApiKey: 'test-kakao', fetchImpl })).toEqual({
+      latitude: 37.57,
+      longitude: 126.99,
+      formattedAddress: '서울 종로구 예시로 지하 129',
+    });
+    expect(new URL(String(fetchImpl.mock.calls[0][0])).pathname).toBe(
+      '/v2/local/search/keyword.json',
+    );
+  });
   it('빈 입력과 환경키 없는 입력은 요청하지 않는다', async () => {
     expect(await geocodeLocation(' ')).toBeNull();
     expect(await geocodeLocation('예시역')).toBeNull();

@@ -173,7 +173,8 @@ export async function geocodeLocation(
   // 대체 공급자도 최초 요청의 남은 시간만 사용합니다.
   const deadline = Date.now() + (options.timeout ?? options.timeoutMs ?? 10000);
   const remaining = () => deadline - Date.now();
-  const isAddress = /(?:로|길|동|읍|면|리)\s*\d/u.test(keyword);
+  // '을지로3가역'처럼 숫자가 든 역 이름은 주소가 아니라 장소로 검색합니다.
+  const isAddress = !keyword.endsWith('역') && /(?:로|길|동|읍|면|리)\s*\d/u.test(keyword);
   let documents: KakaoDocument[] = [];
   const kakaoTimeout = remaining();
   if (options.kakaoRestApiKey?.trim() && kakaoTimeout > 0) {
