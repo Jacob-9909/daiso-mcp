@@ -2,6 +2,7 @@
 import sharp from 'sharp';
 import { fileURLToPath } from 'node:url';
 import { renderPixelText } from './workers-chart-pixel-text.ts';
+import { renderChartStickers } from './workers-chart-stickers.ts';
 import {
   buildDataLabelIndexes,
   calculateMovingAverage,
@@ -105,6 +106,12 @@ export function buildChartSvg(points, summary, metadata) {
     points.findIndex((point) => point.date === min.date),
   ]);
   const labels = buildDataLabelIndexes(points);
+  const labelBoxes = [...labels].map((index) => ({
+    left: chartPoints[index].x - formatNumber(points[index].requests).length * 6 - 8,
+    top: chartPoints[index].y - 31,
+    width: formatNumber(points[index].requests).length * 12 + 16,
+    height: 24,
+  }));
   const line = linePath(chartPoints);
   const area = `${line} L ${AREA.right} ${AREA.bottom} L ${AREA.left} ${AREA.bottom} Z`;
   const metrics = [
@@ -175,6 +182,7 @@ export function buildChartSvg(points, summary, metadata) {
         return `<text x="${point.x.toFixed(1)}" y="${(point.y - 17).toFixed(1)}" text-anchor="middle" class="data-label">${escapeXml(formatNumber(points[index].requests))}</text>`;
       })
       .join('\n')}
+    ${renderChartStickers(chartPoints, movingAverage, AREA, labelBoxes)}
     </g>
     ${recentPanel(points)}
     ${metrics.map(([label, value, color], index) => metricSvg(AREA.left + (index % 3) * (cardWidth + 16), 682 + Math.floor(index / 3) * 94, cardWidth, label, value, color)).join('\n')}
