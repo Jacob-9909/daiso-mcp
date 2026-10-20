@@ -15,6 +15,10 @@ async function fixture() {
   temporaryRoots.push(root);
   await fs.mkdir(path.join(root, 'scripts/ops'), { recursive: true });
   await fs.mkdir(path.join(root, 'assets/analytics'), { recursive: true });
+  await fs.copyFile(
+    'assets/analytics/workers-chart-pixel-background.png',
+    path.join(root, 'assets/analytics/workers-chart-pixel-background.png'),
+  );
   for (const name of [
     'workers-chart-data.ts',
     'workers-chart-helpers.ts',

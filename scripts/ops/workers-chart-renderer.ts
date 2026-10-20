@@ -1,5 +1,6 @@
 /** 실제 호출량은 그대로 두고 README 일러스트와 어울리는 차트를 그립니다. */
 import sharp from 'sharp';
+import { fileURLToPath } from 'node:url';
 import {
   buildDataLabelIndexes,
   calculateMovingAverage,
@@ -10,6 +11,10 @@ import {
   shouldShowWeeklyTick,
   WORKERS_CHART_ACCENT_COLORS,
 } from './workers-chart-helpers.ts';
+
+const PIXEL_BACKGROUND = fileURLToPath(
+  new URL('../../assets/analytics/workers-chart-pixel-background.png', import.meta.url),
+);
 
 const INK = '#583c2c';
 const MUTED = '#7e6753';
@@ -32,20 +37,10 @@ function linePath(points) {
     .join(' ');
 }
 
-function pawSvg(x, y) {
-  return `<g transform="translate(${x} ${y})" fill="${CORAL}" opacity="0.65">
-    <ellipse cx="0" cy="9" rx="13" ry="10" />
-    <ellipse cx="-16" cy="-3" rx="5" ry="7" transform="rotate(-25 -16 -3)" />
-    <ellipse cx="-6" cy="-12" rx="5" ry="7" />
-    <ellipse cx="7" cy="-12" rx="5" ry="7" />
-    <ellipse cx="17" cy="-3" rx="5" ry="7" transform="rotate(25 17 -3)" />
-  </g>`;
-}
-
 function metricSvg(x, y, width, label, value, accent) {
   return `<g>
-    <rect x="${x}" y="${y}" width="${width}" height="82" rx="16" fill="#fffcf6" stroke="#dfcbb4" stroke-width="1.4" />
-    <rect x="${x + 20}" y="${y + 18}" width="5" height="45" rx="2.5" fill="${accent}" />
+    <rect x="${x}" y="${y}" width="${width}" height="82" rx="0" fill="#fffcf6" stroke="#dfcbb4" stroke-width="1.4" />
+    <rect x="${x + 20}" y="${y + 18}" width="5" height="45" rx="0" fill="${accent}" />
     <text x="${x + 39}" y="${y + 29}" class="metric-label">${escapeXml(label)}</text>
     <text x="${x + 39}" y="${y + 62}" class="metric-value" fill="${INK}">${escapeXml(value)}</text>
   </g>`;
@@ -64,12 +59,12 @@ function recentPanel(points) {
   const line = linePath(recent.map((point, index) => ({ x: toX(index), y: toY(point.requests) })));
   const latest = recent[recent.length - 1];
   return `<g>
-    <rect x="${x}" y="${y}" width="${width}" height="110" rx="18" fill="#f3f0e4" stroke="#d9d1b9" />
+    <rect x="${x}" y="${y}" width="${width}" height="110" rx="0" fill="#f3f0e4" stroke="#d9d1b9" />
     <text x="${x + 24}" y="${y + 29}" class="panel-title">Last 14 days</text>
     <text x="${x + 174}" y="${y + 29}" class="small">${escapeXml(recent[0].date)} ~ ${escapeXml(latest.date)} · relative scale</text>
     <text x="${AREA.right - 24}" y="${y + 29}" text-anchor="end" class="panel-title">Latest ${escapeXml(formatNumber(latest.requests))}</text>
     <line x1="${x + 24}" y1="${y + 91}" x2="${AREA.right - 24}" y2="${y + 91}" stroke="#dbd4c2" />
-    <path d="${line}" fill="none" stroke="${WORKERS_CHART_ACCENT_COLORS.recent14Line}" stroke-width="3" stroke-linejoin="round" />
+    <path d="${line}" fill="none" stroke="${WORKERS_CHART_ACCENT_COLORS.recent14Line}" stroke-width="3" stroke-linejoin="miter" />
     ${recent.map((point, index) => `<circle cx="${toX(index).toFixed(1)}" cy="${toY(point.requests).toFixed(1)}" r="${index === recent.length - 1 ? 5 : 3}" fill="${WORKERS_CHART_ACCENT_COLORS.recent14Line}" stroke="#fffcf6" stroke-width="1.5" />`).join('\n')}
   </g>`;
 }
@@ -121,11 +116,10 @@ export function buildChartSvg(points, summary, metadata) {
     <title id="chart-title">Cloudflare Requests</title>
     <desc id="chart-description">${escapeXml(`${metadata.startDate} ~ ${metadata.endDate}; ${formatNumber(summary.total)} requests; KST. Requests are not unique users.`)}</desc>
     <defs>
-      <linearGradient id="paper" x2="0" y2="1"><stop stop-color="#fff9ee"/><stop offset="1" stop-color="#fcf3e4"/></linearGradient>
       <linearGradient id="area" x2="0" y2="1"><stop stop-color="#e5a17d" stop-opacity="0.4"/><stop offset="1" stop-color="#edcbb0" stop-opacity="0.12"/></linearGradient>
     </defs>
     <style>
-      text { font-family: Arial, Helvetica, sans-serif; fill: ${INK}; }
+      text { font-family: "DejaVu Sans Mono", monospace; fill: ${INK}; }
       .title { font-size: 36px; font-weight: 700; }
       .subtitle { font-size: 18px; fill: ${MUTED}; }
       .axis, .small { font-size: 15px; fill: ${MUTED}; }
@@ -134,22 +128,18 @@ export function buildChartSvg(points, summary, metadata) {
       .metric-value { font-size: 28px; font-weight: 700; }
       .data-label { font-size: 15px; font-weight: 700; fill: ${INK}; paint-order: stroke; stroke: #fffaf1; stroke-width: 5px; stroke-linejoin: round; }
     </style>
-    <rect width="${width}" height="${height}" rx="32" fill="url(#paper)"/>
-    <rect x="14" y="14" width="1572" height="952" rx="26" fill="none" stroke="#8b6950" stroke-width="2"/>
-    <rect x="24" y="24" width="1552" height="932" rx="20" fill="none" stroke="#e8d8be"/>
     <text x="${AREA.left}" y="76" class="title">Cloudflare Requests</text>
     <text x="${AREA.left}" y="108" class="subtitle">${escapeXml(`${metadata.startDate} ~ ${metadata.endDate} · ${points.length} days · KST`)}</text>
-    <text x="${AREA.right - 50}" y="68" text-anchor="end" class="legend">DAISO MCP</text>
-    <text x="${AREA.right - 50}" y="99" text-anchor="end" class="small">${escapeXml(`Updated ${metadata.updatedAtText}`)}</text>
-    ${pawSvg(AREA.right - 14, 61)}
-    <line x1="${AREA.left}" y1="145" x2="${AREA.left + 36}" y2="145" stroke="${CORAL}" stroke-width="4" stroke-linecap="round"/>
+    <text x="${AREA.right}" y="68" text-anchor="end" class="legend">DAISO MCP</text>
+    <text x="${AREA.right}" y="99" text-anchor="end" class="small">${escapeXml(`Updated ${metadata.updatedAtText}`)}</text>
+    <line x1="${AREA.left}" y1="145" x2="${AREA.left + 36}" y2="145" stroke="${CORAL}" stroke-width="4" stroke-linecap="square"/>
     <text x="${AREA.left + 48}" y="151" class="legend">Daily requests</text>
     <line x1="${AREA.left + 230}" y1="145" x2="${AREA.left + 270}" y2="145" stroke="${SAGE}" stroke-width="3" stroke-dasharray="8 6"/>
     <text x="${AREA.left + 282}" y="151" class="legend">7-day average</text>
-    <rect x="${AREA.right - 148}" y="133" width="16" height="16" rx="4" fill="#eee2cc"/>
+    <rect x="${AREA.right - 148}" y="133" width="16" height="16" rx="0" fill="#eee2cc"/>
     <text x="${AREA.right - 120}" y="147" class="small">Weekend</text>
     <g id="daily-plot" data-min="0" data-max="${yMax}">
-    <rect x="${AREA.left}" y="${AREA.top}" width="${plotWidth}" height="${plotHeight}" rx="8" fill="#fffcf7"/>
+    <rect x="${AREA.left}" y="${AREA.top}" width="${plotWidth}" height="${plotHeight}" rx="0" fill="#fffcf7"/>
     ${points
       .map((point, index) => {
         if (!isWeekendKst(point.date)) return '';
@@ -172,7 +162,7 @@ export function buildChartSvg(points, summary, metadata) {
       })
       .join('\n')}
     <path d="${area}" fill="url(#area)"/>
-    <path d="${line}" fill="none" stroke="${CORAL}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="${line}" fill="none" stroke="${CORAL}" stroke-width="4" stroke-linecap="square" stroke-linejoin="miter"/>
     <path d="${linePath(movingAverage)}" fill="none" stroke="${WORKERS_CHART_ACCENT_COLORS.movingAverage}" stroke-width="3" stroke-dasharray="8 6"/>
     ${chartPoints.map((point, index) => `<circle cx="${point.x.toFixed(1)}" cy="${point.y.toFixed(1)}" r="${highlights.has(index) ? 6 : 3}" fill="${CORAL}" stroke="#fffcf6" stroke-width="2"/>`).join('\n')}
     ${[...labels]
@@ -189,7 +179,14 @@ export function buildChartSvg(points, summary, metadata) {
 }
 
 export async function renderChart(points, summary, metadata) {
-  return sharp(Buffer.from(buildChartSvg(points, summary, metadata)))
+  // 배경의 빈 게시판 안에만 정확한 그래프를 얹고 하단 픽셀 일러스트는 보존합니다.
+  const overlay = await sharp(Buffer.from(buildChartSvg(points, summary, metadata)))
+    .resize(1480, 907)
+    .png()
+    .toBuffer();
+  return sharp(PIXEL_BACKGROUND)
+    .resize(1600, 1200, { kernel: 'nearest', fit: 'fill' })
+    .composite([{ input: overlay, left: 60, top: 18 }])
     .png()
     .toBuffer();
 }

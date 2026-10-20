@@ -14,7 +14,7 @@ const metadata = {
   updatedAtText: '2026-10-20 13:00 KST',
 };
 
-describe('그림책 스타일 호출량 차트', () => {
+describe('픽셀 일러스트 배경에 합성하는 호출량 차트', () => {
   it('정확한 합계와 범례, 0 기준 축 및 상대 축 안내를 유지한다', () => {
     const svg = buildChartSvg(points, calculateSummary(points), metadata);
     expect(svg).toContain('167,824');
@@ -45,6 +45,15 @@ describe('그림책 스타일 호출량 차트', () => {
     const image = await sharp(png).metadata();
     expect(image.format).toBe('png');
     expect(image.width).toBe(1600);
-    expect(image.height).toBe(980);
+    expect(image.height).toBe(1200);
+    const footer = { left: 700, top: 1100, width: 80, height: 50 };
+    const expected = await sharp('assets/analytics/workers-chart-pixel-background.png')
+      .resize(1600, 1200, { kernel: 'nearest', fit: 'fill' })
+      .extract(footer)
+      .ensureAlpha()
+      .raw()
+      .toBuffer();
+    const actualRgba = await sharp(png).extract(footer).ensureAlpha().raw().toBuffer();
+    expect(actualRgba).toEqual(expected);
   });
 });
