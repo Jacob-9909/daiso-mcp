@@ -52,7 +52,7 @@ REST / MCP / CLI → Worker → Access/Tunnel → Mac 편의점 중계
 | 환경 파일        | 같은 기본 디렉터리의 `dtryx.env`                                  |
 | GS 세션          | 같은 기본 디렉터리의 `gs25-auth.json`                             |
 | 편의점 원장/로그 | `convenience-state/quota.json`, `convenience-state/logs/`         |
-| Dtryx 원장/로그  | `dtryx-state/` — 별도 유지                                        |
+| Dtryx 원장/로그  | `dtryx-state/` (별도 유지)                                        |
 | 로컬 health      | `http://127.0.0.1:4320/v1/convenience/health`, `/v1/dtryx/health` |
 
 `GS25_AUTH_SESSION_FILE`은 **Mac 환경 변수**다. Worker secret으로 넣지 않는다. 세션은 현재 실행 사용자 소유의 일반 파일, 최대 16 KiB, 권한 0600이어야 한다. 내용은 `accessToken`, `refreshToken`, `deviceId` 세 필드다. 두 토큰은 `Bearer ` 접두사를 제거한 GS JWT다. `deviceId`는 티켓 발급 때 쓴 값을 유지한다.

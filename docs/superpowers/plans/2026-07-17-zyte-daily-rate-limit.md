@@ -12,20 +12,20 @@
 
 ## 파일 구조
 
-- Create: `src/durableObjects/dailyRateLimiter.ts` — KST 날짜별 카운터와 Durable Object fetch handler
-- Create: `src/middleware/dailyRateLimit.ts` — 보호 경로 판별, IP 해시, binding 호출, 429와 응답 헤더
-- Create: `tests/durableObjects/dailyRateLimiter.test.ts` — 3,000회 경계와 날짜 초기화 단위 테스트
-- Create: `tests/middleware/dailyRateLimit.test.ts` — 경로·메서드·IP·fail-open 미들웨어 테스트
-- Create: `tests/app/app-daily-rate-limit.test.ts` — Hono 라우팅, cache hit, 제외 경로 통합 테스트
-- Modify: `src/api/response.ts` — Durable Object binding 타입과 429 응답 타입
-- Modify: `src/index.ts` — rate limit 미들웨어 등록과 Durable Object class export
-- Modify: `src/api/routes/healthRoutes.ts` — 신뢰 가능한 내부 health fetch에 우회 secret 전달
-- Modify: `src/utils/zyte.ts` — Zyte tags 옵션과 요청 payload
-- Modify: `src/services/{oliveyoung,cgv,cu,gs25,lottemart}/...` — `service` 태그 전달
-- Modify: `tests/utils/zyte.test.ts` — 태그 payload 회귀 테스트
-- Modify: `tests/app/app-health-checks.test.ts` — 내부 health 우회 헤더 테스트
-- Modify: `wrangler.toml` — Durable Object binding과 SQLite migration
-- Modify: `PROJECT.md` — 조사 결과, 구현, 검증 기록
+- Create: `src/durableObjects/dailyRateLimiter.ts`: KST 날짜별 카운터와 Durable Object fetch handler
+- Create: `src/middleware/dailyRateLimit.ts`: 보호 경로 판별, IP 해시, binding 호출, 429와 응답 헤더
+- Create: `tests/durableObjects/dailyRateLimiter.test.ts`: 3,000회 경계와 날짜 초기화 단위 테스트
+- Create: `tests/middleware/dailyRateLimit.test.ts`: 경로·메서드·IP·fail-open 미들웨어 테스트
+- Create: `tests/app/app-daily-rate-limit.test.ts`: Hono 라우팅, cache hit, 제외 경로 통합 테스트
+- Modify: `src/api/response.ts`: Durable Object binding 타입과 429 응답 타입
+- Modify: `src/index.ts`: rate limit 미들웨어 등록과 Durable Object class export
+- Modify: `src/api/routes/healthRoutes.ts`: 신뢰 가능한 내부 health fetch에 우회 secret 전달
+- Modify: `src/utils/zyte.ts`: Zyte tags 옵션과 요청 payload
+- Modify: `src/services/{oliveyoung,cgv,cu,gs25,lottemart}/...`: `service` 태그 전달
+- Modify: `tests/utils/zyte.test.ts`: 태그 payload 회귀 테스트
+- Modify: `tests/app/app-health-checks.test.ts`: 내부 health 우회 헤더 테스트
+- Modify: `wrangler.toml`: Durable Object binding과 SQLite migration
+- Modify: `PROJECT.md`: 조사 결과, 구현, 검증 기록
 
 ### Task 1: Durable Object 일일 카운터
 
