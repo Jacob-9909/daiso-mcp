@@ -111,6 +111,10 @@
 
 [앱별 연결 방법](docs/client-guide.md#원격-mcp-연결) · [HTTP POST 직접 호출](docs/service-reference.md#설치-없이-첫-조회)
 
+<p align="center">
+  <img src="./assets/readme-banners/connect.webp" alt="스마트폰과 노트북을 클라우드로 연결하는 두 햄스터" width="100%">
+</p>
+
 <a id="codex-skill"></a>
 
 ## CLI와 Skill
@@ -125,6 +129,10 @@ npx daiso products 수납박스 --json
 설치는 `clawhub install daiso-cli`이며, [CLI·Skill 가이드](docs/client-guide.md#codex-skill)에서 자세한 사용법을 확인할 수 있습니다.
 원격 MCP만 사용한다면 CLI나 Skill을 설치할 필요가 없습니다.
 
+<p align="center">
+  <img src="./assets/readme-banners/cli-skill.webp" alt="터미널과 작업 카드를 이용해 조회하는 햄스터" width="100%">
+</p>
+
 <a id="mcp-연결을-사용할-수-없는-환경"></a>
 
 ## 웹으로 조회하기
@@ -133,6 +141,10 @@ MCP 연결 없이 웹 읽기와 GET 요청을 지원하는 에이전트는 [REST
 **모든 `/api/*` 조회와 후속 요청에 `format=html`을 반드시 붙이세요.**
 
 [수납박스 검색해 보기](https://mcp.aka.page/api/daiso/products?q=%EC%88%EB%82%A9%EB%B0%95%EC%8A%A4&pageSize=3&format=html)
+
+<p align="center">
+  <img src="./assets/readme-banners/web.webp" alt="브라우저 검색 결과에서 매장을 찾아가는 햄스터" width="100%">
+</p>
 
 <a id="더-해볼-수-있는-조회"></a>
 
@@ -148,6 +160,10 @@ MCP 연결 없이 웹 읽기와 GET 요청을 지원하는 에이전트는 [REST
 `콜라 어디가 싼지 비교해줘`처럼 판매처별 가격 후보도 비교할 수 있습니다.
 재고 조회는 상품을 검색해 정확한 상품을 선택한 뒤 진행합니다.
 
+<p align="center">
+  <img src="./assets/readme-banners/examples.webp" alt="생활용품과 간식, 영화 정보를 찾아 동네를 둘러보는 햄스터" width="100%">
+</p>
+
 <a id="응답과-이용-제한"></a>
 
 ## 이용 안내
@@ -155,6 +171,10 @@ MCP 연결 없이 웹 읽기와 GET 요청을 지원하는 에이전트는 [REST
 - 재고와 잔여 좌석은 조회 후 달라질 수 있습니다. 미확인 결과는 품절이나 재고 0과 구분합니다.
 - 일본 다이소는 온라인 상품·가격·매장 검색을 지원하며, **일본 매장 재고는 미지원**입니다.
 - 조회가 실패하면 [서비스 상태](https://aka-page.betteruptime.com/)를 확인하세요. 롯데마트는 지원이 종료되었습니다.
+
+<p align="center">
+  <img src="./assets/readme-banners/guidance.webp" alt="확인 목록과 시계로 조회 상태와 시점을 살펴보는 햄스터" width="100%">
+</p>
 
 <a id="일본-다이소"></a><a id="http-post로-첫-mcp-조회"></a>
 
@@ -174,6 +194,10 @@ MCP 연결 없이 웹 읽기와 GET 요청을 지원하는 에이전트는 [REST
 | [개발·직접 배포](CONTRIBUTING.md)                | 개발 환경과 자체 서버 운영                                                                                                                         |
 | [운영 가이드](scripts/ops/README.md)             | 헬스 체크·요청량·[중계 한도](docs/health-check-stock-and-quota.md)·[주소 검색](docs/geocoding-resilience.md)·[웹 검색 노출](docs/web-discovery.md) |
 
+<p align="center">
+  <img src="./assets/readme-banners/docs.webp" alt="책과 폴더, 마을 지도를 함께 살펴보는 햄스터" width="100%">
+</p>
+
 ## Special Thanks
 
 - [@thecats1105](https://github.com/thecats1105): 다이소 진열 위치 조회
@@ -183,5 +207,9 @@ MCP 연결 없이 웹 읽기와 GET 요청을 지원하는 에이전트는 [REST
 - [@bgmbgm94](https://github.com/bgmbgm94): 디트릭스 표준 포트 전환
 - [@Jacob-9909](https://github.com/Jacob-9909): 개발자 요청 API의 null 본문 오류 수정
 - [제로초님](https://youtube.com/shorts/ZgIqA1NCEp0?si=UW0pKsSpqmEi7lXG): 프로젝트 홍보
+
+<p align="center">
+  <img src="./assets/readme-banners/thanks.webp" alt="지원 서비스 마을을 함께 만드는 기여자 햄스터들" width="100%">
+</p>
 
 MIT License
