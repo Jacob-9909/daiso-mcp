@@ -14,8 +14,6 @@
 
 <div align="center">
 
-<img src="./assets/logo.svg" alt="DAISO MCP" width="120" height="120">
-
 # DAISO MCP
 
 다이소·편의점 재고와 생활 정보를 AI에서 바로 조회하세요.
@@ -23,6 +21,8 @@
 설치·API 키 없이 연결하는 공개 MCP
 
 **[바로 시작하기](#원격-mcp로-바로-시작하기)** · [CLI·Skill](#cli와-skill) · [사용 예시](#이렇게-물어보세요)
+
+<img src="./assets/daiso-mcp-services.png" alt="햄스터와 함께 둘러보는 DAISO MCP 지원 서비스: 한국·일본 다이소, 올리브영, GS25, CU, 세븐일레븐, 이마트24, CGV, 메가박스, 롯데시네마, 디트릭스, 네이버 장소 검색, 오피넷" width="100%">
 
 <h3>지원 서비스</h3>
 
@@ -88,10 +88,6 @@
 <div align="center">
 
 <!-- WORKERS_INVOCATIONS_CHART:END -->
-
-<br>
-
-<img src="https://i.imgur.com/mPwS4Kv.png" width="400">&nbsp;&nbsp;<img src="https://i.imgur.com/MrndJ3g.png" width="400">
 
 </div>
 
