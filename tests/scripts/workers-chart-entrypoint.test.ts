@@ -15,6 +15,11 @@ async function fixture() {
   temporaryRoots.push(root);
   await fs.mkdir(path.join(root, 'scripts/ops'), { recursive: true });
   await fs.mkdir(path.join(root, 'assets/analytics'), { recursive: true });
+  await fs.mkdir(path.join(root, 'assets/fonts'), { recursive: true });
+  await fs.copyFile(
+    'assets/fonts/silkscreen-glyphs.json',
+    path.join(root, 'assets/fonts/silkscreen-glyphs.json'),
+  );
   await fs.copyFile(
     'assets/analytics/workers-chart-pixel-background.png',
     path.join(root, 'assets/analytics/workers-chart-pixel-background.png'),
@@ -23,6 +28,7 @@ async function fixture() {
     'workers-chart-data.ts',
     'workers-chart-helpers.ts',
     'workers-chart-renderer.ts',
+    'workers-chart-pixel-text.ts',
     'update-workers-invocations-chart.ts',
   ]) {
     await fs.copyFile(path.join('scripts/ops', name), path.join(root, 'scripts/ops', name));

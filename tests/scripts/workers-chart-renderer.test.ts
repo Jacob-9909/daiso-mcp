@@ -27,6 +27,10 @@ describe('픽셀 일러스트 배경에 합성하는 호출량 차트', () => {
     expect(svg).toContain('data-min="0"');
     expect(svg).toContain('stroke-dasharray="8 6"');
     expect(svg).not.toContain('NaN');
+    expect(svg).toContain('data-pixel-font="Silkscreen"');
+    expect(svg).not.toContain('<text ');
+    expect(svg).not.toContain('<circle ');
+    expect(svg).not.toContain('<linearGradient');
   });
 
   it('단일 0건 기록과 특수문자도 유효한 SVG로 표현한다', () => {
