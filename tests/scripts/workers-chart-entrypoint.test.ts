@@ -155,6 +155,7 @@ describe('workers chart entrypoint', () => {
     expect(readme).not.toContain('old chart');
     expect(readme.match(/<div align="center">/g)).toHaveLength(2);
     expect(readme.match(/<\/div>/g)).toHaveLength(2);
-    expect(readme).toContain('IP당 하루 합산 3,000회');
+    expect(readme).not.toContain('IP당 하루 합산 3,000회');
+    expect(readme).not.toContain('최근 공개 서버 사용량');
   });
 });

@@ -11,7 +11,7 @@ import {
 } from '../../scripts/ops/workers-chart-helpers.ts';
 
 describe('buildReadmeSection', () => {
-  it('호출량 그래프 아래에 일일 합산 호출 제한 안내를 유지한다', () => {
+  it('차트 갱신 시 삭제한 공개 서버 사용량 공지를 다시 넣지 않는다', () => {
     const section = buildReadmeSection({
       scriptName: 'daiso-mcp',
       updatedAt: '2026-07-17 22:55 KST',
@@ -21,14 +21,11 @@ describe('buildReadmeSection', () => {
       cacheKey: '2026-07-17T13:55:00.000Z',
     });
 
-    expect(section).toContain('> [!IMPORTANT]');
-    expect(section).not.toContain('롯데마트');
-    expect(section).toContain('올리브영·CGV·CU·GS25');
-    expect(section).toContain('2026년 7월 18일부터');
-    expect(section).toContain('IP당 하루 합산 3,000회(KST 기준)');
-    expect(section.indexOf('workers-invocations.png')).toBeLessThan(
-      section.indexOf('> [!IMPORTANT]'),
-    );
+    expect(section).not.toContain('> [!IMPORTANT]');
+    expect(section).not.toContain('최근 공개 서버 사용량');
+    expect(section).not.toContain('IP당 하루 합산 3,000회');
+    expect(section).toContain('workers-invocations.png');
+    expect(section).toContain('사용자 수와 다릅니다.');
   });
 
   it('운영 문서 상대 이미지 경로와 독립된 중앙 정렬 영역을 사용한다', () => {
@@ -41,7 +38,7 @@ describe('buildReadmeSection', () => {
       cacheKey: '2026-07-17T14:05:00.000Z',
     });
 
-    expect(section).toContain('</div>\n\n> [!IMPORTANT]');
+    expect(section).toContain('</div>\n\n<!-- WORKERS_INVOCATIONS_CHART:END -->');
     expect(section).toContain('../../assets/analytics/workers-invocations.png');
     expect(section).toContain('<!-- WORKERS_INVOCATIONS_CHART:START -->\n<div align="center">');
     expect(section.match(/<div/g)).toHaveLength(1);
