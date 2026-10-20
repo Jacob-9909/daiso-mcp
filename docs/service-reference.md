@@ -1,4 +1,4 @@
-# Daiso MCP 서비스 레퍼런스
+# DAISO MCP 서비스 레퍼런스
 
 README 하단에 있던 기능, REST API, 개발, 아키텍처 설명을 분리한 문서입니다.
 

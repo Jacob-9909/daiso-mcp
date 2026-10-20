@@ -34,14 +34,11 @@
 
 </div>
 
-> [!IMPORTANT]
-> 최근 공개 서버 사용량이 크게 증가하여 2026년 7월 18일부터 올리브영·CGV·CU·GS25의 검색을 포함한 공개 GET API에 IP당 하루 합산 3,000회(KST 기준)의 호출 제한을 적용합니다. 한도를 초과하는 사용이 필요하다면 Daiso MCP는 오픈 소스이므로 이 저장소를 직접 배포해 이용해 주세요.
-
 <!-- WORKERS_INVOCATIONS_CHART:END -->
 
 ### 운영 헬스 체크
 
-공개 상태 페이지: **[Daiso MCP Status](https://aka-page.betteruptime.com/)**
+공개 상태 페이지: **[DAISO MCP Status](https://aka-page.betteruptime.com/)**
 
 주변 음식점/카페 검색은 네이버 지역 검색 API를 사용합니다. 로컬 실행이나 배포 환경에는 `NAVER_CLIENT_ID`, `NAVER_CLIENT_SECRET`을 설정하세요.
 

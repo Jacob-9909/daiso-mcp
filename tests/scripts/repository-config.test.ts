@@ -144,7 +144,9 @@ describe('repository maintenance configuration', () => {
     expect(workflow).toContain(
       'CLI_SMOKE_SERVICES: daiso daiso_jp gs25 seveneleven emart24 oliveyoung megabox lottecinema cgv opinet',
     );
-    expect(workflow).toContain('MCP_SMOKE_SERVICES: daiso daiso_jp gs25 seveneleven emart24 opinet');
+    expect(workflow).toContain(
+      'MCP_SMOKE_SERVICES: daiso daiso_jp gs25 seveneleven emart24 opinet',
+    );
     expect(workflow).not.toContain('lottemart');
     expect(workflow).toContain('SMOKE_ATTEMPT_TIMEOUT_SECONDS: 90');
     expect(workflow).toContain('for SMOKE_SERVICE in ${CLI_SMOKE_SERVICES}; do');
@@ -287,19 +289,22 @@ describe('repository maintenance configuration', () => {
     expect(readme).toContain('frida/');
   });
 
-  it('README는 MCP standard 모델 사용법을 설명한다', () => {
+  it('README는 MCP standard 모델을 설명하는 상세 문서로 연결한다', () => {
     const readme = readText('README.md');
 
-    expect(readme).toContain('standard.products');
-    expect(readme).toContain('standard.stores');
-    expect(readme).toContain('standard.theaters');
+    expect(readme).toContain('docs/service-reference.md');
+    const reference = readText('docs/service-reference.md');
+    expect(reference).toContain('standard.products');
+    expect(reference).toContain('standard.stores');
+    expect(reference).toContain('standard.theaters');
   });
 
   it('README는 프로젝트를 MCP 및 Skill로 설명한다', () => {
     const readme = readText('README.md');
 
-    expect(readme).toContain('Daiso MCP 및 Skill');
-    expect(readme).toContain('skills/daiso-cli/SKILL.md');
+    expect(readme).toContain('# DAISO MCP\n');
+    expect(readme).toContain('docs/client-guide.md#codex-skill');
+    expect(readText('docs/client-guide.md')).toContain('../skills/daiso-cli/SKILL.md');
     expect(readme).toContain('npx daiso');
     const fastStartHeading = '## 원격 MCP로 바로 시작하기\n';
     const fastStartIndex = readme.indexOf(fastStartHeading);
@@ -307,12 +312,15 @@ describe('repository maintenance configuration', () => {
     const fastStart = readme.slice(fastStartIndex + fastStartHeading.length).split('\n## ')[0];
     expect(fastStart).toContain('https://mcp.aka.page');
     expect(fastStart).toContain('Streamable HTTP');
-    expect(fastStart).toContain('API 키·토큰·OAuth 설정 불필요');
+    expect(fastStart).toContain('설치·API 키 없이');
+    expect(fastStart).toMatch(/\| 인증\s*\| 없음\s*\|/);
     expect(readme).toContain('로컬 설치·빌드·API 키 준비 없이');
-    expect(fastStart).toContain('Accept: application/json, text/event-stream');
-    expect(fastStart).toContain('"method":"tools/call"');
-    expect(fastStart).toContain('"name":"daiso_search_products"');
-    expect(fastStart).toContain('"query":"수납박스"');
+    expect(fastStart).toContain('docs/service-reference.md#설치-없이-첫-조회');
+    const directCall = readText('docs/service-reference.md').split('### MCP 표준 응답 모델')[0];
+    expect(directCall).toContain('Accept: application/json, text/event-stream');
+    expect(directCall).toContain('"method":"tools/call"');
+    expect(directCall).toContain('"name":"daiso_search_products"');
+    expect(directCall).toContain('"query":"수납박스"');
     expect(readme).toContain('WORKERS_INVOCATIONS_CHART:START');
     expect(readme).toContain('scripts/ops/README.md');
   });

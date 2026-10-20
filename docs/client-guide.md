@@ -16,7 +16,7 @@ ChatGPT GPT 앱과 Grok의 GET 조회는 아래 REST 대안으로 구분합니�
 > MCP 연동이 어렵다는 피드백이 있어 바로 사용 가능한 GPT 앱을 추가했습니다.
 > 이용 가능한 환경과 조건은 현재 ChatGPT 앱에서 확인하세요.
 
-**[Daiso MCP GPT 앱 바로가기](https://chatgpt.com/g/g-69a5266c32108191b71a24642dc63f9e-daiso-mcp)**
+**[DAISO MCP GPT 앱 바로가기](https://chatgpt.com/g/g-69a5266c32108191b71a24642dc63f9e-daiso-mcp)**
 
 빠른 사용 예시:
 
@@ -92,6 +92,9 @@ CGV mcp를 사용해서 강남 CGV 영화랑 시간표 확인해줘
 claude mcp add daiso-mcp https://mcp.aka.page --transport http
 ```
 
+새 대화에서 `다이소 MCP로 수납박스 검색해줘`를 요청하세요.
+에이전트가 `daiso_search_products`에 `{"query":"수납박스"}`를 전달하고 상품 목록과 가격을 반환하면 연결이 완료된 것입니다.
+
 <br>
 
 ### Home Assistant
@@ -129,21 +132,21 @@ https://mcp.aka.page/prompt
 AI: (페이지를 읽고 API 사용법 이해)
 
 사용자: 수납박스 검색해줘
-AI: (https://mcp.aka.page/api/daiso/products?q=수납박스 호출 후 결과 제공)
+AI: (https://mcp.aka.page/api/daiso/products?q=수납박스&format=html 호출 후 결과 제공)
 
 사용자: 안산 중앙역 근처 메가박스 지점 찾아줘
-AI: (https://mcp.aka.page/api/megabox/theaters?keyword=안산%20중앙역 호출 후 결과 제공)
+AI: (https://mcp.aka.page/api/megabox/theaters?keyword=안산%20중앙역&format=html 호출 후 결과 제공)
 
 사용자: 잠실 근처 롯데시네마 지점 찾아줘
-AI: (https://mcp.aka.page/api/lottecinema/theaters?keyword=%EC%9E%A0%EC%8B%A4 호출 후 결과 제공)
+AI: (https://mcp.aka.page/api/lottecinema/theaters?keyword=%EC%9E%A0%EC%8B%A4&format=html 호출 후 결과 제공)
 
 사용자: 오늘 강남 CGV 시간표 알려줘
-AI: (https://mcp.aka.page/api/cgv/timetable?playDate=YYYYMMDD&theaterCode=0056 호출 후 결과 제공)
+AI: (https://mcp.aka.page/api/cgv/timetable?playDate=YYYYMMDD&theaterCode=0056&format=html 호출 후 결과 제공)
 
 사용자: 안산 중앙역 근처 CGV 찾아서 오늘 영화랑 시간표 알려줘
-AI: (https://mcp.aka.page/api/cgv/theaters?playDate=YYYYMMDD&keyword=안산%20중앙역 호출 후 결과 제공)
-AI: (https://mcp.aka.page/api/cgv/movies?playDate=YYYYMMDD&keyword=안산%20중앙역 호출 후 결과 제공)
-AI: (https://mcp.aka.page/api/cgv/timetable?playDate=YYYYMMDD&keyword=안산%20중앙역 호출 후 결과 제공)
+AI: (https://mcp.aka.page/api/cgv/theaters?playDate=YYYYMMDD&keyword=안산%20중앙역&format=html 호출 후 결과 제공)
+AI: (https://mcp.aka.page/api/cgv/movies?playDate=YYYYMMDD&keyword=안산%20중앙역&format=html 호출 후 결과 제공)
+AI: (https://mcp.aka.page/api/cgv/timetable?playDate=YYYYMMDD&keyword=안산%20중앙역&format=html 호출 후 결과 제공)
 ```
 
 <br>

@@ -14,27 +14,15 @@
 
 <div align="center">
 
-<img src="./assets/logo.svg" alt="Daiso MCP" width="120" height="120">
+<img src="./assets/logo.svg" alt="DAISO MCP" width="120" height="120">
 
-<br>
-<br>
+# DAISO MCP
 
-# Daiso MCP 및 Skill
+다이소·편의점 재고와 생활 정보를 AI에서 바로 조회하세요.
 
-다이소·편의점 재고부터 영화관·생활 정보까지, AI에서 바로 조회하세요.
+설치·API 키 없이 연결하는 공개 MCP
 
-디트릭스의 지원 범위와 CLI 예시는 [독립·예술영화관 조회 가이드](docs/dtryx.md)를 참고하세요.
-
-<br>
-
-**MCP:** `https://mcp.aka.page` · **CLI:** `npx daiso` · **Skill:** `clawhub install daiso-cli`
-
-**ClawHub:** [clawhub.ai/hmmhmmhm/daiso-cli](https://clawhub.ai/hmmhmmhm/daiso-cli)
-
-한국 로컬 리테일, 생활 정보, 영화관 조회를 MCP, CLI, Codex Skill로 연결하는 도구입니다.
-사용자는 별도 API 키를 준비하지 않고 바로 사용할 수 있습니다.
-
-<br>
+**[바로 시작하기](#원격-mcp로-바로-시작하기)** · [CLI·Skill](#cli와-skill) · [사용 예시](#이렇게-물어보세요)
 
 <h3>지원 서비스</h3>
 
@@ -43,34 +31,19 @@
     <tr>
       <th>분류</th>
       <th>서비스</th>
-      <th>조회 기능</th>
+      <th>주요 기능</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td>장소</td>
-      <td>네이버 지역 검색</td>
-      <td>음식점, 카페, 디저트, 주변 장소</td>
-    </tr>
-    <tr>
-      <td>교통</td>
-      <td>오피넷</td>
-      <td>전국 평균 유가, 최저가 주유소, 위치 기반 주유소, 주유소 상세정보</td>
-    </tr>
-    <tr>
-      <td>비교</td>
-      <td>다이소, GS25, 세븐일레븐, 이마트24</td>
-      <td>같은 상품의 판매처별 가격 후보 비교</td>
-    </tr>
-    <tr>
-      <td>운영</td>
-      <td>Supabase</td>
-      <td>MCP 오류, 개선 요청, 신규 기능 요청 저장</td>
-    </tr>
-    <tr>
-      <td>리테일</td>
+      <td>생활용품·뷰티</td>
       <td>다이소, 올리브영</td>
-      <td>상품, 매장, 재고</td>
+      <td>상품·매장·재고</td>
+    </tr>
+    <tr>
+      <td>편의점</td>
+      <td>GS25, CU, 세븐일레븐, 이마트24</td>
+      <td>상품·매장·재고</td>
     </tr>
     <tr>
       <td>일본</td>
@@ -78,14 +51,14 @@
       <td>온라인 상품·엔화 가격·매장 (매장 재고 미지원)</td>
     </tr>
     <tr>
-      <td>편의점</td>
-      <td>GS25, 세븐일레븐, CU, 이마트24</td>
-      <td>상품, 매장, 재고, 인기검색어, 카탈로그</td>
+      <td>영화관</td>
+      <td>CGV, 메가박스, 롯데시네마, 디트릭스</td>
+      <td>시간표·잔여 좌석</td>
     </tr>
     <tr>
-      <td>영화관</td>
-      <td>CGV, 메가박스, 롯데시네마</td>
-      <td>극장, 영화, 시간표, 잔여 좌석</td>
+      <td>주변 정보</td>
+      <td>네이버 지역 검색, 오피넷</td>
+      <td>주변 장소·주유소 가격</td>
     </tr>
   </tbody>
 </table>
@@ -112,14 +85,9 @@
 
 </div>
 
-> [!IMPORTANT]
-> 최근 공개 서버 사용량이 크게 증가하여 2026년 7월 18일부터 올리브영·CGV·CU·GS25의 검색을 포함한 공개 GET API에 IP당 하루 합산 3,000회(KST 기준)의 호출 제한을 적용합니다. 한도를 초과하는 사용이 필요하다면 Daiso MCP는 오픈 소스이므로 이 저장소를 직접 배포해 이용해 주세요.
-
 <div align="center">
 
 <!-- WORKERS_INVOCATIONS_CHART:END -->
-
-<br>
 
 <br>
 
@@ -131,135 +99,84 @@
 
 ---
 
-<br>
-
-다이소·편의점 재고, 주변 장소, 주유소 가격, 영화 시간표를 AI에서 조회합니다.
-웹에서는 [공개 첫 화면](https://mcp.aka.page/)에서 시작할 수 있습니다. [검색·크롤러 안내와 배포 구조](docs/web-discovery.md)는 별도 문서에 정리했습니다.
-
 ## 원격 MCP로 바로 시작하기
 
-| 연결 항목 | 값                                  |
-| :-------- | :---------------------------------- |
-| 서버 URL  | `https://mcp.aka.page`              |
-| 전송 방식 | Streamable HTTP (`http`)            |
-| 인증      | 없음: API 키·토큰·OAuth 설정 불필요 |
+원격 MCP를 지원하는 AI 앱에서 서버를 추가하면 설치·API 키 없이 사용할 수 있습니다.
 
-1. 사용하는 AI 앱의 **원격 MCP 서버 추가** 화면을 엽니다.
-2. 위 URL을 입력하고 전송 방식을 묻는 경우 **HTTP / Streamable HTTP**를 선택합니다.
-3. 연결된 도구를 활성화하고 아래 첫 조회를 요청합니다.
+| 연결 항목 | 값                       |
+| :-------- | :----------------------- |
+| 서버 URL  | `https://mcp.aka.page`   |
+| 전송 방식 | Streamable HTTP (`http`) |
+| 인증      | 없음                     |
 
-```text
-다이소 mcp로 수납박스 검색해줘
-```
+1. AI 앱의 **원격 MCP 서버 추가** 화면을 엽니다.
+2. 서버 URL을 입력하고, 전송 방식을 묻는 경우 **HTTP / Streamable HTTP**를 선택합니다.
+3. 도구를 활성화하고 `다이소 MCP로 수납박스 검색해줘`라고 요청합니다.
 
-에이전트가 `daiso_search_products`에 `{"query":"수납박스"}`를 전달하고
-상품 목록과 가격을 반환하면 연결이 완료된 것입니다.
-앱별 화면은 [연결 가이드](docs/client-guide.md#원격-mcp-연결)를 참고하세요.
+[앱별 연결 방법](docs/client-guide.md#원격-mcp-연결) · [HTTP POST 직접 호출](docs/service-reference.md#설치-없이-첫-조회)
 
-### 일본 다이소
+<a id="codex-skill"></a>
 
-일본 다이소의 온라인 상품·가격(JPY)과 매장을 검색할 수 있습니다. **일본 매장 재고는 아직 지원하지 않습니다.** 온라인 판매 가능 여부를 매장 재고로 해석하지 마세요.
+## CLI와 Skill
 
-- MCP: `daiso_jp_search_products`, `daiso_jp_get_product`, `daiso_jp_find_stores`
-- CLI: `npx daiso jp-products ボウル`, `npx daiso jp-stores 渋谷`
-- 웹 읽기: [일본 상품 검색](https://mcp.aka.page/api/daiso-jp/products?q=%E3%83%9C%E3%82%A6%E3%83%AB&format=html) · [일본 매장 검색](https://mcp.aka.page/api/daiso-jp/stores?keyword=%E6%B8%8B%E8%B0%B7&format=html)
-- [일본 다이소 사용법과 연동 범위](docs/daiso-jp-network-analysis.md)
-
-### HTTP POST로 첫 MCP 조회
-
-HTTP POST를 실행할 수 있는 에이전트나 터미널에서는 로컬 패키지 설치 없이 호출합니다.
-이 서버의 루트 POST는 initialize 없이 `tools/call`을 지원합니다.
-
-```bash
-curl -sS -N --max-time 20 'https://mcp.aka.page/' \
-  -H 'Content-Type: application/json' \
-  -H 'Accept: application/json, text/event-stream' \
-  --data '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"daiso_search_products","arguments":{"query":"수납박스","pageSize":1}}}'
-```
-
-응답의 SSE `data:` 안에 `error`와 `result.isError: true`가 없고,
-`result.structuredContent` 또는 `result.content`에 상품 결과가 있으면 성공입니다.
-일반 MCP 클라이언트의 initialize 흐름은 그대로 지원하며 `/mcp` 경로는 initialize가 필요합니다.
-
-### Claude Code
-
-이미 Claude Code를 사용한다면 다음 한 줄로 공개 서버를 등록합니다.
-
-```bash
-claude mcp add daiso-mcp https://mcp.aka.page --transport http
-```
-
-새 대화에서 `다이소 mcp로 수납박스 검색해줘`를 요청하세요.
-
-### 더 해볼 수 있는 조회
-
-```text
-다이소 mcp로 강남역 근처 매장 찾아줘
-GS25 mcp로 강남 근처 오감자 재고 알려줘
-콜라 어디가 싼지 비교해줘
-오늘 강남 CGV 시간표 알려줘
-```
-
-재고 조회는 먼저 상품을 검색해 ID를 확인한 뒤 진행합니다.
-자세한 선택 규칙은 [AI 지시문](docs/ai-instruction.md)에 있습니다.
-
-서비스별 지원 범위와 입력은 [서비스 레퍼런스](docs/service-reference.md)와
-[디트릭스 가이드](docs/dtryx.md)를 참고하세요.
-롯데마트는 지원이 종료되었습니다. 과거 분석과 호환 경로만 보존합니다.
-
-## MCP 연결을 사용할 수 없는 환경
-
-에이전트가 웹페이지를 읽고 GET 요청을 실행할 수 있다면
-[REST 사용법 페이지](https://mcp.aka.page/prompt)를 읽은 뒤 조회할 수 있습니다.
-이 경로는 HTTP GET 기반 REST이며 원격 MCP 연결과 별개의 대안입니다.
-
-터미널에서는 Node.js 환경이 있을 때 다음 명령으로 조회할 수 있습니다.
+Node.js가 있는 터미널에서는 다음 명령으로 조회할 수 있습니다.
 
 ```bash
 npx daiso products 수납박스 --json
 ```
 
-CLI는 로컬 npm 패키지를 실행합니다. 공개 원격 MCP 연결에는 이 명령이 필요하지 않습니다.
-앱·CLI·OpenAPI 대안은 [연결 가이드](docs/client-guide.md)에 있습니다.
+에이전트용 [DAISO CLI Skill](https://clawhub.ai/hmmhmmhm/daiso-cli)도 제공합니다.
+설치는 `clawhub install daiso-cli`이며, [CLI·Skill 가이드](docs/client-guide.md#codex-skill)에서 자세한 사용법을 확인할 수 있습니다.
+원격 MCP만 사용한다면 CLI나 Skill을 설치할 필요가 없습니다.
 
-### Codex Skill
+<a id="mcp-연결을-사용할-수-없는-환경"></a>
 
-에이전트가 CLI 명령을 선택하도록 하는 [Skill](skills/daiso-cli/SKILL.md)도 제공합니다.
-`clawhub install daiso-cli` 설치와 사용 예시는 [연결 가이드](docs/client-guide.md#codex-skill)에 있습니다.
+## 웹으로 조회하기
 
-## 응답과 이용 제한
+MCP 연결 없이 웹 읽기와 GET 요청을 지원하는 에이전트는 [REST 사용법](https://mcp.aka.page/prompt)을 읽고 조회할 수 있습니다.
+**모든 `/api/*` 조회와 후속 요청에 `format=html`을 반드시 붙이세요.**
 
-도구 응답은 원본 필드와 함께 공통 결과를 제공합니다.
-`standard.products`는 상품, `standard.stores`는 매장,
-`standard.theaters`는 영화관 목록입니다.
-[응답 모델](docs/service-reference.md#mcp-표준-응답-모델)에서 필드 정의를 확인하세요.
+[수납박스 검색해 보기](https://mcp.aka.page/api/daiso/products?q=%EC%88%EB%82%A9%EB%B0%95%EC%8A%A4&pageSize=3&format=html)
 
-공개 GET API 중 올리브영·CGV·CU·GS25에는 IP당 하루 합산 3,000회(KST 기준) 제한이 적용됩니다.
+<a id="더-해볼-수-있는-조회"></a>
 
-Mac 중계의 일일 예산은 100배, 분당 속도는 10배로 증액했습니다. 원본 호출 기준 한도는 편의점 공유 일 1,000만 회·분 690회, 올리브영과 Dtryx·CGV 공유는 각각 일 30만 회·분 300회입니다. 자세한 집계와 재시도 기준은 [중계 한도 안내](docs/health-check-stock-and-quota.md)를 참고하세요.
+## 이렇게 물어보세요
 
-조회가 실패하면 [서비스 상태](https://aka-page.betteruptime.com/)를 확인하세요.
-서버 운영과 제한 집계는 [운영 가이드](scripts/ops/README.md)에 있습니다.
+```text
+다이소 수납박스 찾아줘
+강남역 근처 GS25 오감자 재고 알려줘
+주변에서 휘발유가 가장 저렴한 주유소 찾아줘
+오늘 강남 CGV 시간표 알려줘
+```
+
+`콜라 어디가 싼지 비교해줘`처럼 판매처별 가격 후보도 비교할 수 있습니다.
+재고 조회는 상품을 검색해 정확한 상품을 선택한 뒤 진행합니다.
+
+<a id="응답과-이용-제한"></a>
+
+## 이용 안내
+
+- 재고와 잔여 좌석은 조회 후 달라질 수 있습니다. 미확인 결과는 품절이나 재고 0과 구분합니다.
+- 일본 다이소는 온라인 상품·가격·매장 검색을 지원하며, **일본 매장 재고는 미지원**입니다.
+- 조회가 실패하면 [서비스 상태](https://aka-page.betteruptime.com/)를 확인하세요. 롯데마트는 지원이 종료되었습니다.
+
+<a id="일본-다이소"></a><a id="http-post로-첫-mcp-조회"></a>
 
 ## 상세 문서
 
-이전 README 절의 링크는 아래 상세 가이드로 이어집니다.
+<a id="mcp-표준-응답-모델"></a><a id="통합-상품-가격-비교"></a><a id="오피넷-유가-정보"></a><a id="개발자-요청-제출"></a><a id="무료-위치-검색"></a><a id="신규-mcp-기능-추가-시-유의사항"></a><a id="운영-헬스-체크"></a><a id="운영-통계"></a><a id="docs-문서"></a>
 
 <a id="ai-앱에서-mcp-연결하기"></a><a id="chatgpt"></a><a id="claude"></a><a id="claude-code"></a><a id="home-assistant"></a><a id="grok"></a><a id="바로-실행해보기"></a><a id="mcp-서버-url--cli-고급"></a><a id="openapi-스펙"></a><a id="미지원-서비스"></a>
 
-- [앱 연결·CLI·Skill·OpenAPI](docs/client-guide.md)
-  <a id="mcp-표준-응답-모델"></a><a id="통합-상품-가격-비교"></a><a id="오피넷-유가-정보"></a><a id="개발자-요청-제출"></a><a id="무료-위치-검색"></a><a id="신규-mcp-기능-추가-시-유의사항"></a>
-
-- [서비스 도구·REST API·아키텍처](docs/service-reference.md)
-- [AI 도구 선택·조회 흐름](docs/ai-instruction.md)
-- [무료 위치 검색·쿼터 보호·공공 주소 DB](docs/geocoding-resilience.md)
-- [개발·설치·직접 배포](CONTRIBUTING.md)
-  <a id="운영-헬스-체크"></a><a id="운영-통계"></a>
-
-- [서버 운영·헬스 체크·요청량 차트](scripts/ops/README.md)
-  <a id="docs-문서"></a>
-
-- [서비스 분석 문서](docs/service-reference.md#분석-문서)
+| 문서                                             | 내용                                                                                                                                               |
+| :----------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [연결·사용 가이드](docs/client-guide.md)         | 앱별 MCP 연결, CLI, Skill, OpenAPI                                                                                                                 |
+| [서비스 레퍼런스](docs/service-reference.md)     | 서비스별 도구·REST API·응답 모델·가격 비교                                                                                                         |
+| [일본 다이소](docs/daiso-jp-network-analysis.md) | 일본 상품·매장 검색과 지원 범위                                                                                                                    |
+| [독립·예술영화관](docs/dtryx.md)                 | 디트릭스 지원 극장과 조회 방법                                                                                                                     |
+| [AI 조회 가이드](docs/ai-instruction.md)         | 도구 선택과 상품·매장·재고 조회 순서                                                                                                               |
+| [개발·직접 배포](CONTRIBUTING.md)                | 개발 환경과 자체 서버 운영                                                                                                                         |
+| [운영 가이드](scripts/ops/README.md)             | 헬스 체크·요청량·[중계 한도](docs/health-check-stock-and-quota.md)·[주소 검색](docs/geocoding-resilience.md)·[웹 검색 노출](docs/web-discovery.md) |
 
 ## Special Thanks
 
