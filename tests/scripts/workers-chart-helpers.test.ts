@@ -99,9 +99,9 @@ describe('shouldShowWeeklyTick', () => {
 });
 
 describe('WORKERS_CHART_ACCENT_COLORS', () => {
-  it('보조선 색상은 amber 계열을 사용한다', () => {
-    expect(WORKERS_CHART_ACCENT_COLORS.movingAverage).toBe('#f59e0b');
-    expect(WORKERS_CHART_ACCENT_COLORS.recent14Line).toBe('#f59e0b');
-    expect(WORKERS_CHART_ACCENT_COLORS.recent14Label).toBe('#b45309');
+  it('일별 추이와 이동평균은 서로 구분되는 그림책 색상을 사용한다', () => {
+    expect(WORKERS_CHART_ACCENT_COLORS.movingAverage).toBe('#70876a');
+    expect(WORKERS_CHART_ACCENT_COLORS.recent14Line).toBe('#ce694b');
+    expect(WORKERS_CHART_ACCENT_COLORS.recent14Label).toBe('#583c2c');
   });
 });

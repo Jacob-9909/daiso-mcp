@@ -18,6 +18,7 @@ async function fixture() {
   for (const name of [
     'workers-chart-data.ts',
     'workers-chart-helpers.ts',
+    'workers-chart-renderer.ts',
     'update-workers-invocations-chart.ts',
   ]) {
     await fs.copyFile(path.join('scripts/ops', name), path.join(root, 'scripts/ops', name));

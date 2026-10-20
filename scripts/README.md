@@ -7,7 +7,7 @@
 - `scripts/ops/mcp-smoke.ts`: 배포된 MCP 엔드포인트에서 대표 도구 목록과 호출 결과를 확인합니다.
 - `scripts/ops/cli-smoke.ts`: 빌드된 CLI가 주요 사용자 시나리오를 처리하는지 확인합니다.
 - `scripts/ops/generate-openapi.ts`: API 라우트 기반 OpenAPI 산출물을 생성합니다.
-- `scripts/ops/workers-chart-data.ts`, `scripts/ops/update-workers-invocations-chart.ts`: Cloudflare Workers 호출량 차트를 갱신합니다.
+- `scripts/ops/workers-chart-data.ts`, `scripts/ops/workers-chart-renderer.ts`, `scripts/ops/update-workers-invocations-chart.ts`: Cloudflare Workers 호출량을 집계하고 README 일러스트 색상에 맞는 차트를 그려 갱신합니다.
 
 운영 스크립트는 CI나 릴리스 절차에서 반복 실행될 수 있어야 하며, 실패 메시지는 원인 추적에 필요한 명령/도구/응답 일부를 포함해야 합니다.
 

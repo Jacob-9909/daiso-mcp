@@ -8,9 +8,9 @@ export function formatKstDate(date) {
 }
 
 export const WORKERS_CHART_ACCENT_COLORS = {
-  movingAverage: '#f59e0b',
-  recent14Line: '#f59e0b',
-  recent14Label: '#b45309',
+  movingAverage: '#70876a',
+  recent14Line: '#ce694b',
+  recent14Label: '#583c2c',
 };
 
 export function formatKstDateTime(date) {
