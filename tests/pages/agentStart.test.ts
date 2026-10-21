@@ -4,27 +4,22 @@ import { buildAgentStartText, createAgentStartResponse } from '../../src/pages/a
 import { generatePromptText } from '../../src/pages/prompt.js';
 
 describe('에이전트 시작 안내', () => {
-  it('첫 MCP 요청을 실행 가능한 JSON-RPC로 제공한다', () => {
-    const text = buildAgentStartText('https://example.com');
-    const body = text.match(/--data '([^']+)'/)?.[1];
-    expect(body).toBeDefined();
-    expect(JSON.parse(body!)).toEqual({
-      jsonrpc: '2.0', id: 1, method: 'tools/call',
-      params: { name: 'search_products', arguments: { service: 'daiso', query: '수납박스', pageSize: 3 } },
-    });
-    expect(text).toContain('https://example.com/');
-    expect(text).toContain('application/json, text/event-stream');
+  it('연결된 MCP 도구의 현재 입력과 WebFetch 첫 조회를 안내한다', () => {
+    const text=buildAgentStartText('https://example.com');
+    const args=text.match(/search_products (\{[^}]+\})/)?.[1];
+    expect(JSON.parse(args!)).toEqual({service:'daiso',query:'수납박스',pageSize:3});
+    expect(text).toContain('WebFetch');
     expect(text).toContain('structuredContent');
-    expect(text).toContain('result.isError=true');
+    expect(text).toContain('isError=true');
+    expect(text).not.toContain('curl');
   });
 
-  it('원격 MCP 연결과 HTTP POST, REST GET을 구분하고 전체 문서 읽기를 요구하지 않는다', () => {
+  it('원격 MCP 연결과 WebFetch REST GET을 구분하고 전체 문서 읽기를 요구하지 않는다', () => {
     const text = buildAgentStartText('https://example.com');
     expect(text).toContain('https://mcp.aka.page');
     expect(text).toContain('Streamable HTTP');
     expect(text).toContain('인증: 없음');
     expect(text).toContain('initialize');
-    expect(text).toContain('stateless');
     expect(text).toContain('REST GET');
     expect(text).toContain('MCP 프로토콜 호출이 아닙니다');
     expect(text).toContain('/api/daiso/products?q=%EC%88%98%EB%82%A9%EB%B0%95%EC%8A%A4&pageSize=3');
@@ -42,11 +37,11 @@ describe('에이전트 시작 안내', () => {
     expect(text).toContain('MCP 지원 서비스');
   });
 
-  it('캐시 가능한 평문 응답을 반환한다', async () => {
+  it('새 캐시 저장을 막는 평문 응답을 반환한다', async () => {
     const response = createAgentStartResponse('https://example.com');
     expect(response.status).toBe(200);
     expect(response.headers.get('Content-Type')).toBe('text/plain; charset=utf-8');
-    expect(response.headers.get('Cache-Control')).toBe('public, max-age=3600');
+    expect(response.headers.get('Cache-Control')).toBe('no-store');
     expect(await response.text()).toBe(buildAgentStartText('https://example.com'));
   });
 });

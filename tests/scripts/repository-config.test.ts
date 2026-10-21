@@ -315,13 +315,13 @@ describe('repository maintenance configuration', () => {
     expect(fastStart).toContain('설치·API 키 없이');
     expect(fastStart).toMatch(/\| 인증\s*\| 없음\s*\|/);
     expect(readme).toContain('로컬 설치·빌드·API 키 준비 없이');
-    expect(fastStart).toContain('docs/service-reference.md#설치-없이-첫-조회');
+    expect(fastStart).toContain('docs/service-reference.md?guide=2026-10-21.3#설치-없이-첫-조회');
     const directCall = readText('docs/service-reference.md').split('### MCP 표준 응답 모델')[0];
-    expect(directCall).toContain('Accept: application/json, text/event-stream');
-    expect(directCall).toContain('"method":"tools/call"');
-    expect(directCall).toContain('"name":"search_products"');
-    expect(directCall).toContain('"query":"수납박스"');
-    expect(directCall).toContain('"service":"daiso"');
+    expect(directCall).toContain('WebFetch');
+    expect(directCall).toContain('format=html&guide=2026-10-21.3');
+    expect(directCall).not.toMatch(/\bcurl\b|--data/);
+    expect(directCall).toContain('`search_products`');
+    expect(directCall).toContain('`service=daiso`');
     expect(readme).toContain('WORKERS_INVOCATIONS_CHART:START');
     expect(readme).toContain('scripts/ops/README.md');
   });
@@ -425,7 +425,7 @@ describe('repository maintenance configuration', () => {
 
     expect(skill).toContain('name: daiso-cli');
     expect(skill).toContain('description:');
-    expect(skill).toContain('version: 1.0.7');
+    expect(skill).toContain('version: 1.0.8');
     expect(skill).toContain('metadata:');
     expect(skill).toContain('openclaw:');
     expect(skill).toContain('requires:');

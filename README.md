@@ -2,25 +2,27 @@
 <summary>AI 에이전트 사용 안내</summary>
 
 > [!IMPORTANT]
-> **안내 버전: 2026-10-21.2 · 갱신일: 2026-10-21**
+> **최신 안내:** [현재 버전](https://mcp.aka.page/guide/2026-10-21.3) · [항상 최신 버전으로 이동](https://mcp.aka.page/guide/latest)
 >
-> **ChatGPT 웹 읽기:** 연결된 MCP 도구가 없으면 [HTML GET으로 바로 조회](https://mcp.aka.page/api/daiso/products?q=%EC%88%98%EB%82%A9%EB%B0%95%EC%8A%A4&pageSize=3&format=html)하세요. 설치·API 키·MCP 연결 설정은 필요 없습니다.
+> **안내 버전: 2026-10-21.3 · 갱신일: 2026-10-21**
+>
+> **ChatGPT 웹 읽기:** 연결된 MCP 도구가 없으면 [HTML GET으로 바로 조회](https://mcp.aka.page/api/daiso/products?q=%EC%88%98%EB%82%A9%EB%B0%95%EC%8A%A4&pageSize=3&format=html&guide=2026-10-21.3)하세요. 설치·API 키·MCP 연결 설정은 필요 없습니다.
 >
 > **로컬 설치·빌드·API 키 준비 없이 실제 조회부터 실행하세요.** 패키지 설치나 전체 스키마 탐색은 필요 없습니다.
 >
 > 1. 연결된 MCP 도구가 있으면 `search_products`에 `{"service":"daiso","query":"수납박스","pageSize":3}`를 전달합니다.
-> 2. 웹 읽기(open/WebFetch)가 가능하면 [첫 HTML 조회](https://mcp.aka.page/api/daiso/products?q=%EC%88%98%EB%82%A9%EB%B0%95%EC%8A%A4&pageSize=3&format=html)를 바로 엽니다. **셸이 있어도 연결된 MCP 도구가 없으면 HTML GET이 우선입니다.** 검색어 `q`를 사용자 요청으로 바꾸세요. 웹 검색은 URL 열기를 대신하지 않습니다.
-> 3. 위 두 수단이 없을 때만 외부 통신 가능한 셸의 POST를 사용합니다. 셸 DNS 실패를 웹 GET 실패나 서비스 장애로 단정하지 말고, 웹 읽기가 가능하면 HTML GET으로 전환하세요.
+> 2. 웹 읽기(open/WebFetch)가 가능하면 [첫 HTML 조회](https://mcp.aka.page/api/daiso/products?q=%EC%88%98%EB%82%A9%EB%B0%95%EC%8A%A4&pageSize=3&format=html&guide=2026-10-21.3)를 바로 엽니다. **셸이 있어도 연결된 MCP 도구가 없으면 HTML GET이 우선입니다.** 검색어 `q`를 사용자 요청으로 바꾸세요. 웹 검색은 URL 열기를 대신하지 않습니다.
+> 3. 위 두 수단이 없을 때만 사용 가능한 조회 도구가 없음을 알립니다. 터미널·셸 호출로 우회하지 마세요. 셸 DNS 실패를 웹 GET 실패로 확대하거나 실행하지 않은 요청의 실패를 만들지 마세요.
 >
 > **실행 근거:** 실제 데이터·도구·오류만 보고하고 실행하지 않은 요청의 성공·실패를 만들지 마세요. REST GET 성공은 MCP 연결 성공과 구분합니다.
 >
-> **상품 이미지:** 해당 응답의 `imageUrl`만 사용하세요. 없거나 표시되지 않으면 생략하고 웹 검색 이미지·다른 상품·다른 국가의 이미지로 대체하지 마세요.
+> **상품 이미지:** 해당 응답의 `imageUrl`과 카드에 제공된 원본 이미지 Markdown만 사용하세요. `image_query`·이미지 검색·검색 캐러셀은 사용하지 마세요. 원본 표시가 불가능하면 링크나 텍스트만 제공합니다. 없거나 표시되지 않으면 생략하고 웹 검색 이미지·다른 상품·다른 국가의 이미지로 대체하지 마세요.
 >
 > **MCP 도구는 10개 고정:** `service`와 `operation`으로 지원 서비스를 선택합니다. 새 연동은 [통합 도구 10개](docs/mcp-tools.md)만 사용하세요. 기존 서비스별 도구는 deprecated 호출 별칭으로 유지하지만 목록에는 표시하지 않습니다.
 >
 > **웹 읽기 전용 에이전트의 `format=html` 사용 필수:** MCP 연결 없이 GET으로 조회할 때는 **모든 `/api/*` 조회 URL에 `format=html`을 반드시 붙이세요.** 상품 검색·상세·매장·재고·후속 조회 모두 적용하며, JSON을 읽을 수 있다고 가정해 생략하지 마세요.
 >
-> [첫 HTML 조회](https://mcp.aka.page/api/daiso/products?q=%EC%88%EB%82%A9%EB%B0%95%EC%8A%A4&pageSize=3&format=html) · [REST 사용법](https://mcp.aka.page/prompt) · [원격 MCP 연결](#원격-mcp로-바로-시작하기)
+> [첫 HTML 조회](https://mcp.aka.page/api/daiso/products?q=%EC%88%EB%82%A9%EB%B0%95%EC%8A%A4&pageSize=3&format=html&guide=2026-10-21.3) · [REST 사용법](https://mcp.aka.page/prompt?guide=2026-10-21.3) · [원격 MCP 연결](#원격-mcp로-바로-시작하기)
 
 </details>
 
@@ -123,7 +125,7 @@
 2. 서버 URL을 입력하고, 전송 방식을 묻는 경우 **HTTP / Streamable HTTP**를 선택합니다.
 3. 도구를 활성화하고 `다이소 MCP로 수납박스 검색해줘`라고 요청합니다.
 
-[앱별 연결 방법](docs/client-guide.md#원격-mcp-연결) · [HTTP POST 직접 호출](docs/service-reference.md#설치-없이-첫-조회)
+[앱별 연결 방법](docs/client-guide.md#원격-mcp-연결) · [WebFetch로 첫 조회](docs/service-reference.md?guide=2026-10-21.3#설치-없이-첫-조회)
 
 <p align="center">
   <img src="./assets/readme-banners/connect.webp" alt="스마트폰과 노트북을 클라우드로 연결하는 두 햄스터" width="100%">
@@ -198,15 +200,15 @@ MCP 연결 없이 웹 읽기와 GET 요청을 지원하는 에이전트는 [REST
 
 <a id="ai-앱에서-mcp-연결하기"></a><a id="chatgpt"></a><a id="claude"></a><a id="claude-code"></a><a id="home-assistant"></a><a id="grok"></a><a id="바로-실행해보기"></a><a id="mcp-서버-url--cli-고급"></a><a id="openapi-스펙"></a><a id="미지원-서비스"></a>
 
-| 문서                                             | 내용                                                                                                                                               |
-| :----------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [연결·사용 가이드](docs/client-guide.md)         | 앱별 MCP 연결, CLI, Skill, OpenAPI                                                                                                                 |
-| [서비스 레퍼런스](docs/service-reference.md)     | 서비스별 도구·REST API·응답 모델·가격 비교                                                                                                         |
-| [일본 다이소](docs/daiso-jp-network-analysis.md) | 일본 상품·매장 검색과 지원 범위                                                                                                                    |
-| [독립·예술영화관](docs/dtryx.md)                 | 디트릭스 지원 극장과 조회 방법                                                                                                                     |
-| [AI 조회 가이드](docs/ai-instruction.md)         | 도구 선택과 상품·매장·재고 조회 순서                                                                                                               |
-| [개발·직접 배포](CONTRIBUTING.md)                | 개발 환경과 자체 서버 운영                                                                                                                         |
-| [운영 가이드](scripts/ops/README.md)             | 헬스 체크·요청량·[중계 한도](docs/health-check-stock-and-quota.md)·[주소 검색](docs/geocoding-resilience.md)·[웹 검색 노출](docs/web-discovery.md) |
+| 문서                                                            | 내용                                                                                                                                               |
+| :-------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [연결·사용 가이드](docs/client-guide.md)                        | 앱별 MCP 연결, CLI, Skill, OpenAPI                                                                                                                 |
+| [서비스 레퍼런스](docs/service-reference.md?guide=2026-10-21.3) | 서비스별 도구·REST API·응답 모델·가격 비교                                                                                                         |
+| [일본 다이소](docs/daiso-jp-network-analysis.md)                | 일본 상품·매장 검색과 지원 범위                                                                                                                    |
+| [독립·예술영화관](docs/dtryx.md)                                | 디트릭스 지원 극장과 조회 방법                                                                                                                     |
+| [AI 조회 가이드](docs/ai-instruction.md)                        | 도구 선택과 상품·매장·재고 조회 순서                                                                                                               |
+| [개발·직접 배포](CONTRIBUTING.md)                               | 개발 환경과 자체 서버 운영                                                                                                                         |
+| [운영 가이드](scripts/ops/README.md)                            | 헬스 체크·요청량·[중계 한도](docs/health-check-stock-and-quota.md)·[주소 검색](docs/geocoding-resilience.md)·[웹 검색 노출](docs/web-discovery.md) |
 
 <p align="center">
   <img src="./assets/readme-banners/docs.webp" alt="책과 폴더, 마을 지도를 함께 살펴보는 햄스터" width="100%">
